@@ -1,0 +1,55 @@
+/* create-incident.css */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    background-color: #f4f7f6;
+    /* CLAVE DEL FOOTER: */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.form-wrapper {
+    /* Ajustamos para que crezca y centre */
+    display: flex;
+    justify-content: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem; /* Un poco de aire abajo */
+    width: 100%;
+    flex: 1; /* ESTO EMPUJA EL FOOTER ABAJO */
+}
+.form-card {
+    background: var(--white);
+    width: 100%;
+    max-width: 600px;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.context-info {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border-left: 5px solid #ffc107;
+}
+
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: bold; }
+.form-group select, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+.btn-submit {
+    width: 100%;
+    background-color: var(--primary);
+    color: white;
+    font-size: 1.1rem;
+}
+.btn-submit:hover { background-color: var(--success); }

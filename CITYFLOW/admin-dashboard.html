@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Operaciones - CityFlow</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/admin.css"> </head>
+<body>
+    
+    <header class="admin-header">
+        <nav class="navbar">
+            <div class="brand">
+                <h2>CityFlow 🛡️</h2>
+                <span class="role-badge">MODO OPERADOR</span>
+            </div>
+            <div class="nav-links">
+                <a href="login.html" onclick="sessionStorage.clear()">Cerrar Sesión</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="admin-wrapper">
+        <div class="admin-controls">
+            <h1>Gestión de Incidencias</h1>
+            <div class="stats-row">
+                <div class="kpi-card danger">
+                    <h3>3</h3>
+                    <small>Pendientes</small>
+                </div>
+                <div class="kpi-card success">
+                    <h3>12</h3>
+                    <small>Resueltas Hoy</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Línea</th>
+                        <th>Reportado por</th>
+                        <th>Tipo</th>
+                        <th>Prioridad</th>
+                        <th>Acción / Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row-pending">
+                        <td>#INC-991</td>
+                        <td><strong>Línea 1</strong></td>
+                        <td>Cond. Juan P.</td>
+                        <td>Avería Motor</td>
+                        <td><span class="prio-high">ALTA</span></td>
+                        <td>
+                            <form class="action-form">
+                                <select class="status-select">
+                                    <option value="pending" selected>🔴 Pendiente</option>
+                                    <option value="process">🟡 En Proceso</option>
+                                    <option value="solved">🟢 Resuelta</option>
+                                </select>
+                                <button type="button" class="btn-update">Guardar</button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>#INC-990</td>
+                        <td>Línea 5</td>
+                        <td>Oper. Ana M.</td>
+                        <td>Retraso</td>
+                        <td><span class="prio-med">MEDIA</span></td>
+                        <td>
+                            <form class="action-form">
+                                <select class="status-select">
+                                    <option value="pending">🔴 Pendiente</option>
+                                    <option value="process" selected>🟡 En Proceso</option>
+                                    <option value="solved">🟢 Resuelta</option>
+                                </select>
+                                <button type="button" class="btn-update">Guardar</button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    <tr class="row-done">
+                        <td>#INC-850</td>
+                        <td>Línea 12</td>
+                        <td>Cond. Luis</td>
+                        <td>Limpieza</td>
+                        <td><span class="prio-low">BAJA</span></td>
+                        <td>
+                            <span class="status-text-ok">✅ Resuelta</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 CityFlow - Panel Privado</p>
+        </div>
+    </footer>
+</body>
+</html>

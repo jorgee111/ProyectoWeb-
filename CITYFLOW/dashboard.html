@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Línea - CityFlow</title>
+    
+    <link rel="stylesheet" href="css/dashboard.css"> 
+    <link rel="stylesheet" href="css/line-detail.css">
+    <link rel="icon" href="img/favicon.ico">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <h2>CityFlow</h2>
+            <div class="nav-links">
+                <a href="dashboard.html">Volver al Dashboard</a>
+                <a href="login.html" id="logout-btn">Salir</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        
+        <div class="detail-header">
+            <h1 id="line-name">Cargando datos...</h1>
+            <span id="line-status" class="status-badge">...</span>
+        </div>
+
+        <section class="info-grid">
+            
+            <article class="detail-card">
+                <h3>Información de la Línea</h3>
+                
+                <div class="info-row">
+                    <strong>Zona:</strong>
+                    <span id="line-zone">--</span>
+                </div>
+                
+                <div class="info-row">
+                    <strong>Ocupación Actual:</strong>
+                    <span id="line-occupation">0</span>%
+                </div>
+                
+                <div class="progress-bar-bg">
+                    <div id="occupation-bar" class="progress-bar" style="width: 0%"></div>
+                </div>
+            </article>
+
+            <article class="detail-card">
+                <h3>Gestión Rápida</h3>
+                <div class="actions-container">
+                    <button class="btn btn-warning">⚠️ Reportar Incidencia</button>
+                    <button class="btn btn-secondary">📞 Contactar Central</button>
+                </div>
+            </article>
+        </section>
+
+        <section class="vehicles-section">
+            <h2>Flota Asignada</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Conductor</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vehicles-list">
+                        <tr>
+                            <td colspan="3" style="text-align: center;">Cargando flota...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2025 CityFlow - Gestión Inteligente</p>
+    </footer>
+
+    <script src="js/line-detail.js"></script>
+</body>
+</html>

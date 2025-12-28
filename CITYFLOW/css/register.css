@@ -1,0 +1,155 @@
+/* Reset básico y tipografía */
+* {
+    box-sizing: border-box;
+}
+.logo-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.cityflow-logo {
+
+    width: 180px; 
+    height: auto; 
+    
+ 
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    /* Fondo con degradado azul suave */
+    background: linear-gradient(135deg, #eef2f7 0%, #cddcec 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.register-container {
+    width: 100%;
+    max-width: 420px; /* Un poco más ancho para que respire */
+}
+
+.register-card {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 15px;
+    /* Sombra azulada suave */
+    box-shadow: 0 10px 25px rgba(0, 86, 179, 0.15);
+    text-align: center;
+    border-top: 5px solid #0056b3; /* Línea azul superior decorativa */
+}
+
+/* Estilos del Logo */
+.logo-container {
+    margin-bottom: 1.5rem;
+}
+
+.cityflow-logo {
+    max-width: 100%;
+    height: auto;
+    /* Un pequeño efecto de sombra en el logo */
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+/* Títulos */
+h2 {
+    color: #003366; /* Azul oscuro para el título */
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.subtitle {
+    color: #6c757d;
+    margin-bottom: 2rem;
+}
+
+/* Inputs */
+.input-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #004494; /* Azul medio para etiquetas */
+    font-weight: 600;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e1e5eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+/* Al hacer clic en el input, se pone azul */
+.input-group input:focus {
+    outline: none;
+    border-color: #0056b3;
+}
+
+/* BOTÓN PRINCIPAL AZUL */
+.btn-register-blue {
+    width: 100%;
+    padding: 14px;
+    /* Color azul vibrante */
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn-register-blue:hover {
+    background-color: #004494; /* Azul más oscuro al pasar el ratón */
+}
+
+.btn-register-blue:active {
+    transform: scale(0.98); /* Pequeño efecto de clic */
+}
+
+/* Enlaces */
+.login-link-container {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.blue-link {
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.blue-link:hover {
+    text-decoration: underline;
+}
+
+/* Mensajes de estado */
+.message-box {
+    margin-top: 1.5rem;
+    font-weight: 600;
+    min-height: 1.2em;
+    padding: 10px;
+    border-radius: 5px;
+}
+.message-success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+.message-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}

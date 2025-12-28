@@ -1,0 +1,114 @@
+/* css/admin.css */
+
+/* Ajuste del Body para el Footer */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    background-color: #e9ecef; /* Un gris un poco más serio */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.admin-wrapper {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 20px;
+    width: 100%;
+    flex: 1; /* Empuja el footer */
+}
+
+/* Header específico */
+.role-badge {
+    background-color: #ffc107;
+    color: #333;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+.brand { display: flex; align-items: center; }
+
+/* KPIs (Cajas de arriba) */
+.admin-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.stats-row { display: flex; gap: 15px; }
+
+.kpi-card {
+    background: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-left: 4px solid #ccc;
+}
+.kpi-card.danger { border-color: #dc3545; }
+.kpi-card.success { border-color: #28a745; }
+.kpi-card h3 { margin: 0; font-size: 1.5rem; }
+.kpi-card small { color: #666; font-size: 0.8rem; }
+
+/* Tabla de Administración */
+.table-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th {
+    background-color: #343a40; /* Cabecera oscura */
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+.admin-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dee2e6;
+    vertical-align: middle;
+}
+
+/* Acciones en la tabla */
+.action-form {
+    display: flex;
+    gap: 10px;
+}
+
+.status-select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.btn-update {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+.btn-update:hover { background-color: #0056b3; }
+
+/* Estilos de Prioridad */
+.prio-high { color: #dc3545; font-weight: bold; }
+.prio-med { color: #fd7e14; font-weight: bold; }
+.prio-low { color: #28a745; font-weight: bold; }
+
+/* Filas resueltas */
+.row-done { background-color: #f8f9fa; color: #aaa; }
+.status-text-ok { color: #28a745; font-weight: bold; }

@@ -1,0 +1,102 @@
+/* global.css */
+:root {
+    --primary: #004e92;      /* Azul CityFlow */
+    --secondary: #000428;    /* Azul Oscuro */
+    --accent: #ff9966;       /* Naranja para acciones */
+    --danger: #d9534f;
+    --success: #5cb85c;
+    --bg-light: #f4f7f6;
+    --text-dark: #333;
+    --white: #ffffff;
+    --shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* Navegación común */
+.navbar {
+    background: linear-gradient(to right, var(--secondary), var(--primary));
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--white);
+    box-shadow: var(--shadow);
+}
+
+.nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+
+/* --- AÑADIR AL FINAL DE global.css --- */
+
+/* Footer Global */
+.main-footer {
+    background-color: var(--secondary); /* El azul oscuro corporativo */
+    color: var(--white);
+    padding: 1.5rem 0;
+    margin-top: auto; /* IMPORTANTE: Esto empuja el footer al fondo */
+    font-size: 0.9rem;
+    border-top: 4px solid var(--accent); /* Un toque de color naranja */
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Para móviles */
+}
+
+.footer-links a {
+    color: #bbb;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--accent); /* Naranja al pasar el ratón */
+    text-decoration: underline;
+}
+
+/* Ajuste para móviles */
+@media (max-width: 600px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    .footer-links a {
+        margin: 0 10px;
+    }
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Incidencia - CityFlow</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/create-incident.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+        <h2>CityFlow</h2>
+        <div class="nav-links">
+            <a href="line-detail.html">Cancelar</a>
+        </div>
+    </nav>
+
+
+    </header>
+    
+
+    <main class="form-wrapper">
+        <article class="form-card">
+            <h2>Reportar Incidencia</h2>
+            <div class="context-info">
+                Sobre: <strong>Línea 1 - Norte</strong>
+            </div>
+
+            <form action="my-incidents.html">
+                <section class="form-group">
+                    <label>Tipo de Problema</label>
+                    <select required>
+                        <option value="">Selecciona...</option>
+                        <option>Avería Mecánica</option>
+                        <option>Accidente</option>
+                        <option>Retraso excesivo</option>
+                    </select>
+                </section>
+
+                <section class="form-group">
+                    <label>Descripción detallada</label>
+                    <textarea rows="5" placeholder="Describe qué ha sucedido..."></textarea>
+                </section>
+
+                <section class="checkbox-group">
+                    <label>
+                        <input type="checkbox"> Solicitar Asistencia Técnica
+                    </label>
+                </section>
+
+                <button type="submit" class="btn btn-submit">Enviar Reporte</button>
+            </form>
+        </article>
+    </main>
+
+<footer class="main-footer">
+    <article class="footer-content">
+        <p>&copy; 2024 CityFlow - Gestión de Movilidad Urbana</p>
+        <section class="footer-links">
+            <a href="#">Soporte Técnico</a>
+            <a href="#">Aviso Legal</a>
+            <a href="#">Contacto</a>
+        </section>
+    </article>
+</footer>
+</body>
+</html>

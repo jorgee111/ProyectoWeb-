@@ -1,0 +1,122 @@
+/* Reset básico */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    /* Fondo degradado azul */
+    background: linear-gradient(135deg, #eef2f7 0%, #cddcec 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-card {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 86, 179, 0.15);
+    text-align: center;
+    border-top: 5px solid #0056b3;
+}
+
+/* Estilos del Logo */
+.logo-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.cityflow-logo {
+    width: 180px;
+    height: auto;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+h2 {
+    color: #003366;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #6c757d;
+    margin-bottom: 2rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #004494;
+    font-weight: 600;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e1e5eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #0056b3;
+}
+
+/* BOTÓN DE LOGIN AZUL */
+.btn-login-blue {
+    width: 100%;
+    padding: 14px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-login-blue:hover {
+    background-color: #004494;
+}
+
+/* Enlace a Registro */
+.register-link-container {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.blue-link {
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.blue-link:hover {
+    text-decoration: underline;
+}
+
+/* Mensaje de error */
+.message-box {
+    margin-top: 1rem;
+    font-weight: bold;
+    min-height: 20px;
+    color: #721c24;
+}

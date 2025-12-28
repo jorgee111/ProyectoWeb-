@@ -1,0 +1,64 @@
+/* line-detail.css */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    background-color: #f4f7f6;
+    /* CLAVE DEL FOOTER: */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.detail-wrapper { 
+    max-width: 1000px; 
+    margin: 2rem auto; 
+    padding: 0 20px;
+    width: 100%;
+    flex: 1; /* ESTO EMPUJA EL FOOTER ABAJO */
+}
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.btn-report {
+    background-color: var(--danger);
+    color: white;
+}
+.btn-report:hover { background-color: #c9302c; }
+
+.iot-stats {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 2rem;
+}
+
+.stat-box {
+    flex: 1;
+    background: var(--white);
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--accent);
+}
+.stat-box h3 { font-size: 2rem; color: var(--primary); margin-bottom: 5px; }
+
+.flota-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    box-shadow: var(--shadow);
+}
+.flota-table th, .flota-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+.flota-table th { background-color: var(--secondary); color: white; }
