@@ -1,136 +1,218 @@
-/* --- CABECERA --- */
-.detail-header {
+/* --- CONFIGURACIÓN BÁSICA Y VARIABLES --- */
+:root {
+    --primary-color: #0056b3;
+    --secondary-color: #6c757d;
+    --background-color: #f0f2f5;
+    --card-bg: #ffffff;
+    --text-color: #333;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--background-color);
+    margin: 0;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- BARRA DE NAVEGACIÓN (Navbar) --- */
+.navbar {
+    background-color: var(--primary-color);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar h2 {
+    color: white;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.nav-links a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: white;
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+.main-content {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    flex: 1; /* Empuja el footer hacia abajo */
+}
+
+/* --- HEADER DE LA PÁGINA (Título y Filtro) --- */
+.page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid #e1e5eb;
 }
 
-.detail-header h1 {
-    color: #003366; /* Azul oscuro corporativo */
+.page-header h1 {
+    color: var(--primary-color);
     margin: 0;
-    font-size: 2rem;
 }
 
-/* --- BADGES DE ESTADO (Etiquetas de color) --- */
-.status-badge {
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-weight: bold;
-    color: white;
+.filter-select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
     font-size: 1rem;
-    text-transform: uppercase;
-    background-color: #6c757d; /* Gris por defecto */
+    outline: none;
+    cursor: pointer;
 }
 
-/* Colores según estado */
-.status-badge.ok { background-color: #28a745; }    /* Verde (Operativa) */
-.status-badge.alert { background-color: #dc3545; } /* Rojo (Incidencia) */
-.status-badge.warn { background-color: #ffc107; color: #333; } /* Amarillo (Retraso) */
-
-/* --- GRID Y TARJETAS --- */
-.info-grid {
+/* --- GRID SYSTEM (La Cuadrícula de Cartas) --- */
+.grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-bottom: 2.5rem;
+    /* Crea columnas automáticas de mínimo 300px */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
 }
 
-.detail-card {
-    background: white;
-    padding: 1.5rem;
+/* --- ESTILO DE LAS CARTAS --- */
+.card {
+    background: var(--card-bg);
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    border-top: 4px solid #0056b3; /* Borde superior azul */
-}
-
-.detail-card h3 {
-    margin-top: 0;
-    color: #0056b3;
-    margin-bottom: 1.5rem;
-    font-size: 1.2rem;
-}
-
-.info-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-    color: #444;
-    border-bottom: 1px dashed #eee;
-    padding-bottom: 5px;
-}
-
-/* --- BARRA DE PROGRESO (Ocupación) --- */
-.progress-bar-bg {
-    background-color: #e9ecef;
-    border-radius: 10px;
-    height: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     overflow: hidden;
-    margin-top: 15px;
-}
-
-.progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, #0056b3, #00a8ff);
-    width: 0%;
-    transition: width 1s ease-in-out, background-color 0.3s;
-}
-
-/* --- BOTONES --- */
-.actions-container {
+    transition: transform 0.2s, box-shadow 0.2s;
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
-.btn {
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1rem;
-    transition: opacity 0.2s;
+.card:hover {
+    transform: translateY(-5px); /* Efecto de elevación al pasar el ratón */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
 }
 
-.btn:hover { opacity: 0.9; }
-
-.btn-warning { background-color: #ffc107; color: #333; }
-.btn-secondary { background-color: #6c757d; color: white; }
-
-/* --- TABLA DE VEHÍCULOS --- */
-.vehicles-section h2 {
-    color: #003366;
-    margin-bottom: 1rem;
-}
-
-.table-container {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    overflow: hidden; /* Para redondear esquinas de la tabla */
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
+/* Cabecera de la carta (Badge L-1 y Estado) */
+.card-header {
     padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-th {
     background-color: #f8f9fa;
-    color: #0056b3;
-    font-weight: 700;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-tr:hover {
-    background-color: #f1f3f5;
+.line-badge {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* Estados (Bolita de color + Texto) */
+.status {
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.status::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* Colores de estado */
+.status.active { color: var(--success-color); }
+.status.active::before { background-color: var(--success-color); }
+
+.status.delay, .status.warning { color: var(--warning-color); }
+.status.delay::before, .status.warning::before { background-color: var(--warning-color); }
+
+.status.alert { color: var(--danger-color); }
+.status.alert::before { background-color: var(--danger-color); }
+
+
+/* Cuerpo de la carta */
+.card-body {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.card-body h3 {
+    margin-top: 0;
+    color: #444;
+}
+
+.card-body p {
+    margin: 8px 0;
+    color: #666;
+}
+
+/* Pie de la carta (Botón) */
+.card-footer {
+    padding: 15px;
+    text-align: center;
+    border-top: 1px solid #eee;
+}
+
+.btn-detail {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 0;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-detail:hover {
+    background-color: #004494;
+}
+
+/* --- FOOTER --- */
+.main-footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: auto;
+}
+
+.footer-content p {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.footer-links a {
+    color: #adb5bd;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 0.85rem;
+}
+
+.footer-links a:hover {
+    color: white;
 }

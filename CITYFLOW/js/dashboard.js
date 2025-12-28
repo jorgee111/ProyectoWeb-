@@ -1,101 +1,111 @@
-// js/line-detail.js
+const API_URL = "http://localhost:4000/api/lines";
+const container = document.getElementById("lines-container");
+const filterSelect = document.getElementById("zone-filter");
 
-// 1. Obtener el ID de la línea desde la URL (ej: ?id=1)
-const params = new URLSearchParams(window.location.search);
-const lineId = params.get("id");
+// Variable global para guardar los datos y poder filtrar sin recargar
+let allLines = [];
 
-// Elementos del DOM donde vamos a pintar datos
-const lineNameEl = document.getElementById("line-name");
-const lineStatusEl = document.getElementById("line-status");
-const lineZoneEl = document.getElementById("line-zone");
-const lineOccupationEl = document.getElementById("line-occupation");
-const occupationBarEl = document.getElementById("occupation-bar");
-const vehiclesListEl = document.getElementById("vehicles-list");
-
-// Verificar si estamos logueados (Seguridad básica)
-document.addEventListener("DOMContentLoaded", () => {
-    if (!localStorage.getItem("username")) {
+// 1. Al cargar la página, verificamos sesión y cargamos datos
+document.addEventListener("DOMContentLoaded", async () => {
+    
+    // Seguridad: Si no hay usuario, mandarlo al login
+    const user = localStorage.getItem("username");
+    if (!user) {
         window.location.href = "login.html";
         return;
     }
 
-    if (!lineId) {
-        alert("No se ha especificado ninguna línea.");
-        window.location.href = "dashboard.html";
-        return;
-    }
-
-    loadLineDetails();
-    loadVehicles(); // Esta función se quedará pendiente del backend
+    // Si todo ok, pedimos las líneas
+    await loadLines();
 });
 
-// 2. Cargar detalles de la línea
-async function loadLineDetails() {
+// 2. Función para pedir datos al servidor
+async function loadLines() {
     try {
-        // Petición al backend: GET /api/lines/:id
-        const response = await fetch(`http://localhost:4000/api/lines/${lineId}`);
+        const response = await fetch(API_URL);
         
-        if (!response.ok) throw new Error("Error al cargar la línea");
+        if (!response.ok) {
+            throw new Error("Error al conectar con el servidor");
+        }
 
-        const line = await response.json();
-
-        // 3. Pintar datos en pantalla
-        lineNameEl.textContent = line.name;
-        lineZoneEl.textContent = line.zone;
+        const data = await response.json();
         
-        // Ocupación (Texto y Barra)
-        lineOccupationEl.textContent = line.occupation;
-        occupationBarEl.style.width = `${line.occupation}%`;
-
-        // Color de la barra según ocupación
-        if(line.occupation > 90) occupationBarEl.style.backgroundColor = "red";
-        else if(line.occupation > 50) occupationBarEl.style.backgroundColor = "orange";
-
-        // Estado (Badge de color)
-        updateStatusBadge(line.status);
+        // Guardamos los datos en la variable global
+        allLines = data;
+        
+        // Pintamos las cartas iniciales (todas)
+        renderLines(allLines);
 
     } catch (error) {
         console.error(error);
-        lineNameEl.textContent = "Error al cargar datos";
+        container.innerHTML = `<p style="text-align:center; color:red;">Error cargando datos: Asegúrate de que 'node app.js' está encendido.</p>`;
     }
 }
 
+// 3. Función para generar el HTML de las cartas
+function renderLines(linesToRender) {
+    // Limpiamos el contenedor antes de pintar
+    container.innerHTML = "";
 
-function updateStatusBadge(status) {
-    let text = "Desconocido";
-    let className = "status-badge";
-
-    if (status === "ok" || status === "active") {
-        text = "Operativa";
-        className += " ok";
-    } else if (status === "alert") {
-        text = "Incidencia";
-        className += " alert";
-    } else if (status === "warn" || status === "delay") {
-        text = "Retraso";
-        className += " warn";
+    if (linesToRender.length === 0) {
+        container.innerHTML = `<p style="text-align:center; width:100%;">No se encontraron líneas con este filtro.</p>`;
+        return;
     }
 
-    lineStatusEl.textContent = text;
-    lineStatusEl.className = className;
+    // Recorremos cada línea y creamos su carta
+    linesToRender.forEach(line => {
+        
+        // Lógica visual para los estados
+        let statusClass = "active"; // Verde por defecto
+        let statusText = "Operativa";
+
+        if (line.status === "alert") {
+            statusClass = "alert"; // Rojo
+            statusText = "Incidencia";
+        } else if (line.status === "warn" || line.status === "delay") {
+            statusClass = "warning"; // Amarillo
+            statusText = "Retraso";
+        }
+
+        // Creamos el HTML
+        const cardHTML = `
+            <article class="card">
+                <div class="card-header">
+                    <span class="line-badge">L-${line.id}</span>
+                    <span class="status ${statusClass}">${statusText}</span>
+                </div>
+                <div class="card-body">
+                    <h3>${line.name}</h3>
+                    <p><strong>Zona:</strong> ${line.zone}</p>
+                    <p><strong>Ocupación:</strong> ${line.occupation}%</p>
+                </div>
+                <div class="card-footer">
+                    <a href="line-detail.html?id=${line.id}" class="btn-detail">Ver Detalles</a>
+                </div>
+            </article>
+        `;
+
+        // Añadimos la carta al grid
+        container.innerHTML += cardHTML;
+    });
 }
 
+// 4. Lógica del Filtro de Zonas
+filterSelect.addEventListener("change", (e) => {
+    const selectedZone = e.target.value;
 
-async function loadVehicles() {
+    if (selectedZone === "all") {
+        renderLines(allLines); // Mostrar todas
+    } else {
+        // Filtrar array en memoria
+        const filtered = allLines.filter(line => line.zone === selectedZone);
+        renderLines(filtered);
+    }
+});
 
-    vehiclesListEl.innerHTML = `
-        <tr>
-            <td colspan="3" style="text-align:center; color: #666;">
-                <em>🚧 API de Vehículos pendiente de construcción 🚧</em><br>
-                Próximo paso: Crear <code>vehicles.controller.js</code>
-            </td>
-        </tr>
-    `;
-}
-
-
+// 5. Cerrar Sesión
 document.getElementById("logout-btn").addEventListener("click", (e) => {
-    e.preventDefault();
-    localStorage.clear();
-    window.location.href = "login.html";
+    e.preventDefault(); // Evitar que siga el enlace
+    localStorage.clear(); // Borrar datos de sesión
+    window.location.href = "login.html"; // Ir al login
 });
