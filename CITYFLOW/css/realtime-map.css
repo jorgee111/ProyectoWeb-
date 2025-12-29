@@ -1,0 +1,57 @@
+/* 1. OBLIGATORIO: El html y body deben medir el 100% de la pantalla */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 2. El header no crece, se queda fijo */
+header, .main-footer {
+    flex-shrink: 0; 
+}
+
+/* 3. El wrapper ocupa todo el espacio sobrante */
+.map-wrapper {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%; /* Refuerzo */
+}
+
+.map-header {
+    background: white;
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1000; /* Z-index alto para estar encima del mapa */
+    position: relative;
+}
+
+.indicators {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+}
+.green { background-color: #2ecc71; }
+.yellow { background-color: #f1c40f; }
+.red { background-color: #e74c3c; }
+
+/* 4. EL MAPA: Le damos altura mínima por si falla el flex */
+#map {
+    flex: 1;
+    width: 100%;
+    min-height: 500px; /* <--- ESTO ES EL TRUCO DE SEGURIDAD */
+    background: #e5e5e5;
+    z-index: 1;
+}

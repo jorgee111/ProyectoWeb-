@@ -29,7 +29,7 @@ export async function login(req, res) {
     }  catch (error) {
         console.log("🔴 ERROR:", error); // Esto sale en la terminal
 
-        // MODIFICACIÓN: Enviamos el mensaje técnico a Postman para leerlo
+
         res.status(500).json({ 
             error: "Error al registrar usuario",
             message: error.message,  // <--- ESTO NOS DIRÁ LA CAUSA
@@ -38,10 +38,10 @@ export async function login(req, res) {
     }
 }
 
-// 2. REGISTER (POST) - Crear nuevo usuario
+
 export async function register(req, res) {
     const { username, password } = req.body;
-    const role = "user"; // Por defecto, todos son usuarios normales (operarios/conductores)
+    const role = "user";
 
     // Validación básica
     if (!username || !password) {
@@ -65,7 +65,7 @@ export async function register(req, res) {
         });
 
     } catch (error) {
-        // Si el error es SQLITE_CONSTRAINT, es que el usuario ya existe
+       
         if (error.code === 'SQLITE_CONSTRAINT') {
             return res.status(400).json({ error: "El nombre de usuario ya existe" });
         }

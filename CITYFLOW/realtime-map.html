@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mapa en Tiempo Real - CityFlow</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/realtime-map.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <h2>CityFlow</h2>
+            <div class="nav-links">
+                <a href="dashboard.html">Volver</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="map-wrapper">
+        <div class="map-header">
+            <h1>Seguimiento de Flota en Tiempo Real</h1>
+            <div class="indicators">
+                <span class="dot green"></span> Baja Ocupación
+                <span class="dot yellow"></span> Media
+                <span class="dot red"></span> Alta
+            </div>
+        </div>
+
+        <div id="map"></div>
+    </main>
+
+    <footer class="main-footer">
+        <article class="footer-content">
+            <p>&copy; 2024 CityFlow - Madrid Operations</p>
+        </article>
+    </footer>
+
+    <script src="js/realtime-map.js"></script>
+</body>
+</html>
