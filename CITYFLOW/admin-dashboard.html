@@ -2,9 +2,18 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Operaciones - CityFlow</title>
     <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/admin.css"> </head>
+    <link rel="stylesheet" href="css/admin.css">
+    
+    <script>
+        // Si no hay rol de admin en el localStorage, redirigimos al login inmediatamente 
+        if (localStorage.getItem("role") !== "admin") {
+            window.location.href = "login.html";
+        }
+    </script>
+</head>
 <body>
     
     <header class="admin-header">
@@ -14,7 +23,8 @@
                 <span class="role-badge">MODO OPERADOR</span>
             </div>
             <div class="nav-links">
-                <a href="login.html" onclick="sessionStorage.clear()">Cerrar Sesión</a>
+                <span id="welcome-msg" style="color: white; margin-right: 15px; font-weight: bold;"></span>
+                <a href="#" onclick="logout()">Cerrar Sesión</a>
             </div>
         </nav>
     </header>
@@ -22,13 +32,14 @@
     <main class="admin-wrapper">
         <div class="admin-controls">
             <h1>Gestión de Incidencias</h1>
+            
             <div class="stats-row">
                 <div class="kpi-card danger">
-                    <h3>3</h3>
+                    <h3 id="count-pending">0</h3>
                     <small>Pendientes</small>
                 </div>
                 <div class="kpi-card success">
-                    <h3>12</h3>
+                    <h3 id="count-solved">0</h3>
                     <small>Resueltas Hoy</small>
                 </div>
             </div>
@@ -46,62 +57,29 @@
                         <th>Acción / Estado</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="row-pending">
-                        <td>#INC-991</td>
-                        <td><strong>Línea 1</strong></td>
-                        <td>Cond. Juan P.</td>
-                        <td>Avería Motor</td>
-                        <td><span class="prio-high">ALTA</span></td>
-                        <td>
-                            <form class="action-form">
-                                <select class="status-select">
-                                    <option value="pending" selected>🔴 Pendiente</option>
-                                    <option value="process">🟡 En Proceso</option>
-                                    <option value="solved">🟢 Resuelta</option>
-                                </select>
-                                <button type="button" class="btn-update">Guardar</button>
-                            </form>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>#INC-990</td>
-                        <td>Línea 5</td>
-                        <td>Oper. Ana M.</td>
-                        <td>Retraso</td>
-                        <td><span class="prio-med">MEDIA</span></td>
-                        <td>
-                            <form class="action-form">
-                                <select class="status-select">
-                                    <option value="pending">🔴 Pendiente</option>
-                                    <option value="process" selected>🟡 En Proceso</option>
-                                    <option value="solved">🟢 Resuelta</option>
-                                </select>
-                                <button type="button" class="btn-update">Guardar</button>
-                            </form>
-                        </td>
-                    </tr>
-
-                    <tr class="row-done">
-                        <td>#INC-850</td>
-                        <td>Línea 12</td>
-                        <td>Cond. Luis</td>
-                        <td>Limpieza</td>
-                        <td><span class="prio-low">BAJA</span></td>
-                        <td>
-                            <span class="status-text-ok">✅ Resuelta</span>
-                        </td>
-                    </tr>
-                </tbody>
+                <tbody id="incidents-tbody">
+                    </tbody>
             </table>
         </div>
     </main>
 
     <footer class="main-footer">
         <div class="footer-content">
-            <p>&copy; 2024 CityFlow - Panel Privado</p>
+            <p>&copy; 2024 CityFlow - Panel de Control Persistente</p>
         </div>
     </footer>
+
+    <script src="js/admin.js"></script>
+    
+    <script>
+        // Mostrar nombre de usuario al cargar
+        document.getElementById("welcome-msg").textContent = "Hola, " + localStorage.getItem("username");
+
+        // Función para cerrar sesión y limpiar persistencia 
+        function logout() {
+            localStorage.clear();
+            window.location.href = "login.html";
+        }
+    </script>
 </body>
 </html>

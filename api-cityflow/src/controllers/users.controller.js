@@ -1,49 +1,48 @@
-// src/controllers/users.controller.js
 import { openDB } from "../db/db.js";
+import bcrypt from "bcrypt"; // Importación necesaria 
 
-// 1. LOGIN (POST) - Comprobar credenciales
+const saltRounds = 10; // Nivel de seguridad para el encriptado
+
+// 1. LOGIN (POST) - Comprobar credenciales de forma segura
 export async function login(req, res) {
     const { username, password } = req.body;
 
     try {
         const db = await openDB();
 
-        // Buscamos usuario que coincida nombre Y contraseña
-        const user = await db.get(
-            "SELECT * FROM users WHERE username = ? AND password = ?",
-            [username, password]
-        );
+        // Buscamos al usuario SOLO por nombre (no podemos comparar el hash en el SQL)
+        const user = await db.get("SELECT * FROM users WHERE username = ?", [username]);
 
-        // Si no existe usuario con esa combinación
+        // Si el usuario no existe
         if (!user) {
             return res.status(401).json({ error: "Usuario o contraseña incorrectos" });
         }
 
-        // Si existe, Login correcto
+        // Comparamos la contraseña enviada con el hash guardado en la BBDD 
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            return res.status(401).json({ error: "Usuario o contraseña incorrectos" });
+        }
+
+        // Login correcto: Enviamos datos de sesión (Requisito 1) [cite: 7]
         res.status(200).json({
             message: "Login correcto",
             username: user.username,
-            role: user.role // Importante para redirigir luego
+            role: user.role // Admin o User [cite: 11]
         });
 
-    }  catch (error) {
-        console.log("🔴 ERROR:", error); // Esto sale en la terminal
-
-        // MODIFICACIÓN: Enviamos el mensaje técnico a Postman para leerlo
-        res.status(500).json({ 
-            error: "Error al registrar usuario",
-            message: error.message,  // <--- ESTO NOS DIRÁ LA CAUSA
-            stack: error.stack       // <--- ESTO NOS DIRÁ DÓNDE
-        });
+    } catch (error) {
+        console.log("🔴 ERROR:", error);
+        res.status(500).json({ error: "Error en el servidor al intentar loguear" });
     }
 }
 
-// 2. REGISTER (POST) - Crear nuevo usuario
+// 2. REGISTER (POST) - Crear nuevo usuario con contraseña encriptada
 export async function register(req, res) {
     const { username, password } = req.body;
-    const role = "user"; // Por defecto, todos son usuarios normales (operarios/conductores)
+    const role = "user"; 
 
-    // Validación básica
     if (!username || !password) {
         return res.status(400).json({ error: "Faltan datos (usuario o contraseña)" });
     }
@@ -51,13 +50,15 @@ export async function register(req, res) {
     try {
         const db = await openDB();
 
-        // Insertamos en BBDD
-        const result = await db.run(
+        // Hasheamos la contraseña antes de guardarla 
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+        // Insertamos el HASH en la BBDD, nunca la contraseña real
+        await db.run(
             `INSERT INTO users (username, password, role) VALUES (?, ?, ?)`,
-            [username, password, role]
+            [username, hashedPassword, role]
         );
 
-        // Respuesta 201 (Created)
         res.status(201).json({
             message: "Usuario creado correctamente",
             username: username,
@@ -65,7 +66,6 @@ export async function register(req, res) {
         });
 
     } catch (error) {
-        // Si el error es SQLITE_CONSTRAINT, es que el usuario ya existe
         if (error.code === 'SQLITE_CONSTRAINT') {
             return res.status(400).json({ error: "El nombre de usuario ya existe" });
         }
