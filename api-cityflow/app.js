@@ -2,26 +2,26 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-
 import usersRoutes from './src/routes/users.routes.js';
-import linesRoutes from './src/routes/lines.routes.js'; // <--- OJO: Debe llamarse lines.routes.js
-
-
+import linesRoutes from './src/routes/lines.routes.js'; 
+import detailsRoutes from './src/routes/details.routes.js'; 
+import incidentsRoutes from './src/routes/incidents.routes.js';
+import vehiclesRoutes from './src/routes/vehicles.routes.js';
 import { openDB } from './src/db/db.js';
 
 const app = express();
 const PORT = 4000;
 
-
 app.use(cors());
 app.use(bodyParser.json());
 
-
 openDB();
 
-
-app.use('/api/users', usersRoutes); // Login y Registro
-app.use('/api/lines', linesRoutes); // Dashboard y Detalles
+app.use('/api/users', usersRoutes); 
+app.use('/api/lines', detailsRoutes); 
+app.use('/api/lines', linesRoutes); 
+app.use('/api/incidents', incidentsRoutes);
+app.use('/api/vehicles', vehiclesRoutes);
 
 
 app.listen(PORT, () => {

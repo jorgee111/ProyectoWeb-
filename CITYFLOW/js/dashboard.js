@@ -5,7 +5,6 @@ const filterSelect = document.getElementById("zone-filter");
 // Variable global para guardar los datos y poder filtrar sin recargar
 let allLines = [];
 
-// 1. Al cargar la página, verificamos sesión y cargamos datos
 document.addEventListener("DOMContentLoaded", async () => {
     
     // Seguridad: Si no hay usuario, mandarlo al login

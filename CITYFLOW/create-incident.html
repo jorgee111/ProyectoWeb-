@@ -24,28 +24,29 @@
         <article class="form-card">
             <h2>Reportar Incidencia</h2>
             <div class="context-info">
-                Sobre: <strong>Línea 1 - Norte</strong>
+                Sobre: <strong id="line-context">Cargando...</strong>
             </div>
 
-            <form action="my-incidents.html">
+            <form id="incident-form">
                 <section class="form-group">
                     <label>Tipo de Problema</label>
-                    <select required>
+                    <select id="type" required>
                         <option value="">Selecciona...</option>
-                        <option>Avería Mecánica</option>
-                        <option>Accidente</option>
-                        <option>Retraso excesivo</option>
+                        <option value="Avería Motor">Avería Mecánica</option>
+                        <option value="Accidente">Accidente</option>
+                        <option value="Retraso">Retraso excesivo</option>
+                        <option value="Limpieza">Limpieza</option>
                     </select>
                 </section>
 
                 <section class="form-group">
                     <label>Descripción detallada</label>
-                    <textarea rows="5" placeholder="Describe qué ha sucedido..."></textarea>
+                    <textarea id="description" rows="5" placeholder="Describe qué ha sucedido..." required></textarea>
                 </section>
 
                 <section class="checkbox-group">
                     <label>
-                        <input type="checkbox"> Solicitar Asistencia Técnica
+                        <input type="checkbox" id="assistance"> Solicitar Asistencia Técnica
                     </label>
                 </section>
 
@@ -64,5 +65,7 @@
         </section>
     </article>
 </footer>
+
+<script src="js/create-incident.js"></script>
 </body>
 </html>
