@@ -1,31 +1,26 @@
 import { openDB } from "../db/db.js";
 
-
 export async function createIncident(req, res) {
     let db;
     try {
-        
-        const { line_name, type, description, assistance } = req.body;
+        // 1. CAMBIO PRINCIPAL: Añadimos 'user_name' a la extracción de datos
+        const { line_name, type, description, assistance, user_name } = req.body;
 
-        
-        if (!line_name || !type || !description) {
+        // 2. VALIDACIÓN: Comprobamos que el usuario no venga vacío
+        if (!line_name || !type || !description || !user_name) {
             return res.status(400).json({ 
                 success: false, 
-                message: "Faltan datos obligatorios (Línea, Tipo o Descripción)" 
+                message: "Faltan datos obligatorios (Usuario, Línea, Tipo o Descripción)" 
             });
         }
 
+        // --- LÍNEA ELIMINADA: const user_name = "Conductor_Demo"; ---
+        // Ahora usamos la variable 'user_name' que viene del req.body
         
-        const user_name = "Conductor_Demo"; 
         const status = "pending";          
-        
-        
         const date = new Date().toISOString().split('T')[0]; 
-
-        
         const priority = assistance ? "Alta" : "Normal";
 
-        
         db = await openDB();
         
         const sql = `
@@ -33,9 +28,9 @@ export async function createIncident(req, res) {
             VALUES (?, ?, ?, ?, ?, ?, ?)
         `;
         
+        // El user_name aquí ya es el dinámico (ej: "barbe", "pol", etc.)
         await db.run(sql, [line_name, user_name, type, description, priority, status, date]);
 
-        
         res.status(201).json({
             success: true,
             message: "Incidencia creada correctamente"
@@ -50,25 +45,24 @@ export async function createIncident(req, res) {
     }
 }
 
+// La función getUserIncidents la tenías bien, la dejo aquí por si necesitas el archivo completo
 export async function getUserIncidents(req, res) {
     let db;
     try {
-        const { username } = req.params; // Recibimos el nombre por la URL
+        const { username } = req.params;
 
         db = await openDB();
         
-        // Buscamos todas las incidencias de ese usuario ordenadas por fecha (más nuevas primero)
         const sql = "SELECT * FROM incidents WHERE user_name = ? ORDER BY date DESC";
         const incidents = await db.all(sql, [username]);
 
-        // Formateamos para el frontend
         const formattedIncidents = incidents.map(inc => ({
             id: inc.id,
-            date: inc.date,       // Ej: 2024-10-26
-            line: inc.line_name,  // Ej: Línea 5 - Azul
-            type: inc.type,       // Ej: Avería Motor
+            date: inc.date,
+            line: inc.line_name,
+            type: inc.type,
             priority: inc.priority,
-            status: inc.status,   // 'pending' o 'solved'
+            status: inc.status,
             description: inc.description
         }));
 

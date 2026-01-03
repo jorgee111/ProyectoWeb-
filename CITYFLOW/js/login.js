@@ -46,7 +46,7 @@ document.getElementById("login-form").addEventListener("submit", async (event) =
             console.log("Login exitoso:", data);
             
             // Guardamos datos en el navegador
-            localStorage.setItem("username", data.username);
+            localStorage.setItem("usuario_actual", data.username);
             localStorage.setItem("role", data.role);
 
             // Redirección según el rol

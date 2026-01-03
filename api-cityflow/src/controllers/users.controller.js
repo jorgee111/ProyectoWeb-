@@ -1,74 +1,43 @@
-// src/controllers/users.controller.js
 import { openDB } from "../db/db.js";
+import bcrypt from "bcrypt"; // Recuperamos la seguridad
 
-// 1. LOGIN (POST) - Comprobar credenciales
 export async function login(req, res) {
     const { username, password } = req.body;
-
     try {
         const db = await openDB();
+        const user = await db.get("SELECT * FROM users WHERE username = ?", [username]);
 
-        // Buscamos usuario que coincida nombre Y contraseña
-        const user = await db.get(
-            "SELECT * FROM users WHERE username = ? AND password = ?",
-            [username, password]
-        );
-
-        // Si no existe usuario con esa combinación
         if (!user) {
-            return res.status(401).json({ error: "Usuario o contraseña incorrectos" });
+            return res.status(401).json({ error: "Usuario no encontrado" });
         }
 
-        // Si existe, Login correcto
+        // Comparamos el hash de la BBDD con la pass escrita
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ error: "Contraseña incorrecta" });
+        }
+
         res.status(200).json({
             message: "Login correcto",
             username: user.username,
-            role: user.role // Importante para redirigir luego
+            role: user.role // Vital para admin-dashboard.html
         });
-
-    }  catch (error) {
-        console.log("🔴 ERROR:", error); // Esto sale en la terminal
-
-
-        res.status(500).json({ 
-            error: "Error al registrar usuario",
-            message: error.message,  // <--- ESTO NOS DIRÁ LA CAUSA
-            stack: error.stack       // <--- ESTO NOS DIRÁ DÓNDE
-        });
+    } catch (error) {
+        res.status(500).json({ error: "Error en el servidor" });
     }
 }
 
-
 export async function register(req, res) {
     const { username, password } = req.body;
-    const role = "user";
-
-    // Validación básica
-    if (!username || !password) {
-        return res.status(400).json({ error: "Faltan datos (usuario o contraseña)" });
-    }
-
     try {
         const db = await openDB();
-
-        // Insertamos en BBDD
-        const result = await db.run(
-            `INSERT INTO users (username, password, role) VALUES (?, ?, ?)`,
-            [username, password, role]
+        const hashedPassword = await bcrypt.hash(password, 10); // Encriptamos antes de guardar
+        await db.run(
+            "INSERT INTO users (username, password, role) VALUES (?, ?, 'user')",
+            [username, hashedPassword]
         );
-
-        // Respuesta 201 (Created)
-        res.status(201).json({
-            message: "Usuario creado correctamente",
-            username: username,
-            role: role
-        });
-
+        res.status(201).json({ message: "Usuario creado correctamente" });
     } catch (error) {
-       
-        if (error.code === 'SQLITE_CONSTRAINT') {
-            return res.status(400).json({ error: "El nombre de usuario ya existe" });
-        }
-        res.status(500).json({ error: "Error al registrar usuario" });
+        res.status(400).json({ error: "Error al registrar: posible usuario duplicado" });
     }
 }

@@ -3,22 +3,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const lineName = urlParams.get('lineName') || "Línea General";
 
-
+    // Mostramos en el título sobre qué línea estamos reportando
     document.getElementById('line-context').textContent = lineName;
 
     const form = document.getElementById('incident-form');
     
     form.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Evita que la página se recargue sola
+        e.preventDefault(); 
 
-        // Capturamos los valores de los inputs por su ID
+        // 1. NUEVO: Recuperamos quién está conectado
+        // Si no hay nadie (null), usamos "barbe" por defecto para que no falle al probar
+        const currentUser = localStorage.getItem("usuario_actual") || "barbe";
+
         const type = document.getElementById('type').value;
         const description = document.getElementById('description').value;
-        const assistance = document.getElementById('assistance').checked; // true o false
+        const assistance = document.getElementById('assistance').checked; 
 
-        // Objeto con los datos a enviar
+        // 2. NUEVO: Añadimos 'user_name' al objeto
         const incidentData = {
             line_name: lineName,
+            user_name: currentUser, // <--- ¡AQUÍ ESTÁ LA CLAVE!
             type: type,
             description: description,
             assistance: assistance
@@ -36,8 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
 
             if (result.success) {
-                alert("¡Incidencia reportada con éxito!");
-                // Redirigir a la página de "Mis Incidencias"
+                alert("¡Incidencia reportada con éxito por " + currentUser + "!");
                 window.location.href = 'my-incidents.html';
             } else {
                 alert("Error: " + result.message);
