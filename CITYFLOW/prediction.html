@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción - CityFlow</title>
+    
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/prediction.css">
+    <link rel="icon" href="img/favicon.ico">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <h2>CityFlow</h2>
+            <div class="nav-links">
+                <a href="realtime-map.html">Mapa en Tiempo Real</a>
+                 <a href="prediction.html" class="active">Predicción IA</a> 
+                <a href="dashboard.html">Líneas</a>
+                <a href="my-incidents.html">Mis Incidencias</a>
+                <a href="login.html" id="logout-btn">Salir</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        
+        <header class="page-header">
+            <h1>Simulador de Tráfico (IA)</h1>
+            <p style="color: var(--secondary-color);">Introduce las variables climatológicas y temporales.</p>
+        </header>
+
+        <section class="prediction-container">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Parámetros de Entrada</h3>
+                    <span class="line-badge" style="background-color: var(--secondary-color);">Modelo v1.0</span>
+                </div>
+
+                <div class="card-body">
+                    <form id="trafficForm">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="dia">Día de la semana</label>
+                                <select id="dia" required class="filter-select full-width">
+                                    <option value="" disabled selected>Selecciona...</option>
+                                    <option value="0">Lunes</option>
+                                    <option value="1">Martes</option>
+                                    <option value="2">Miércoles</option>
+                                    <option value="3">Jueves</option>
+                                    <option value="4">Viernes</option>
+                                    <option value="5">Sábado</option>
+                                    <option value="6">Domingo</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="hora">Hora (0-23)</label>
+                                <input type="number" id="hora" min="0" max="23" required class="filter-select full-width" placeholder="Ej: 18">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="humedad">Humedad (%)</label>
+                                <input type="number" id="humedad" min="0" max="100" value="50" class="filter-select full-width">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="viento">Viento (m/s)</label>
+                                <input type="number" id="viento" min="0" value="5" class="filter-select full-width">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="lluvia">Lluvia (mm)</label>
+                                <input type="number" id="lluvia" min="0" value="0" class="filter-select full-width">
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" id="btnPredict" class="btn-detail">Calcular Predicción</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="resultArea" class="card hidden" style="margin-top: 2rem;">
+                <div class="card-header">
+                    <h3>Resultado del Análisis</h3>
+                </div>
+                <div class="card-body result-body">
+                    <p>Nivel de congestión estimado:</p>
+                    <h2 id="predictionText" class="status">--</h2>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <article class="footer-content">
+            <p>&copy; 2025 CityFlow - Gestión de Movilidad Urbana</p>
+            <section class="footer-links">
+                <a href="#">Soporte Técnico</a>
+                <a href="#">Aviso Legal</a>
+                <a href="#">Contacto</a>
+            </section>
+        </article>
+    </footer>
+
+    <script src="js/prediction.js"></script>
+</body>
+</html>
