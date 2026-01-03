@@ -67,6 +67,9 @@
 
 import { Router } from "express";
 
+import express from 'express';
+import { login } from '../controllers/users.controller.js'; // Asegúrate de que el path sea correcto
+
 
 import { 
     
@@ -74,10 +77,15 @@ import {
     register
  } from "../controllers/users.controller.js";
 
-const router = Router();
+const router = express.Router();
+
 
 
 router.post("/", login);
 router.post("/register", register);
+
+router.get('/', (req, res) => {
+    res.json({ message: "Servicio de usuarios activo. Envía un POST para login." });
+});
 
 export default router;
