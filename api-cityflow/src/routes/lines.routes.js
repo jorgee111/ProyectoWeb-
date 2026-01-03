@@ -1,11 +1,14 @@
-
 import { Router } from "express";
-
-import { getAllLines, getLineById } from "../controllers/lines.controller.js";
+import { 
+    getAllLines, 
+    getAllIncidents, 
+    updateIncidentStatus 
+} from "../controllers/lines.controller.js";
 
 const router = Router();
 
 router.get("/", getAllLines);
-router.get("/:id", getLineById);
+router.get("/incidents", getAllIncidents); // Esta es la que usa admin.js
+router.put("/incidents/:id", updateIncidentStatus); // Esta es la del botón Guardar
 
 export default router;

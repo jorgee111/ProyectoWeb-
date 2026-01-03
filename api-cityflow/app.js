@@ -17,12 +17,12 @@ app.use(bodyParser.json());
 
 openDB();
 
+// Registro de rutas corregido
 app.use('/api/users', usersRoutes); 
-app.use('/api/lines', detailsRoutes); 
 app.use('/api/lines', linesRoutes); 
-app.use('/api/incidents', incidentsRoutes);
+app.use('/api/details', detailsRoutes); 
+app.use('/api/incidents', incidentsRoutes); // Ruta para la tabla del admin
 app.use('/api/vehicles', vehiclesRoutes);
-
 
 app.listen(PORT, () => {
     console.log(`Servidor CityFlow corriendo en http://localhost:${PORT}`);
