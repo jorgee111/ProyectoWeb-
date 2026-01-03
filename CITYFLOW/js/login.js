@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:4000/api/users";
+import API_BASE_URL from './config.js';
+const API_URL = `${API_BASE_URL}/users`;
 
 // Escuchamos el evento 'submit' del formulario, no el click del botón
 document.getElementById("login-form").addEventListener("submit", async (event) => {

@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:4000/api/lines";
+import API_BASE_URL from './config.js';
+const API_URL = `${API_BASE_URL}/lines`;
 const container = document.getElementById("lines-container");
 const filterSelect = document.getElementById("zone-filter");
 

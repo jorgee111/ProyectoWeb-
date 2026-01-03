@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:4000/api/users/register";
+import API_BASE_URL from './config.js';
+const API_URL = `${API_BASE_URL}/users/register`;
 
 // Usamos "submit" en el formulario para que funcione también al pulsar Enter
 document.getElementById("register-form").addEventListener("submit", async (event) => {
