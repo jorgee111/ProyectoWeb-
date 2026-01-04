@@ -8,9 +8,9 @@ let allLines = [];
 document.addEventListener("DOMContentLoaded", async () => {
     
     // Seguridad: Si no hay usuario, mandarlo al login
-    const user = localStorage.getItem("username");
+    const user = localStorage.getItem("usuario_actual");
     if (!user) {
-        window.location.href = "login.html";
+        window.location.href = "index.html";
         return;
     }
 
@@ -106,5 +106,5 @@ filterSelect.addEventListener("change", (e) => {
 document.getElementById("logout-btn").addEventListener("click", (e) => {
     e.preventDefault(); // Evitar que siga el enlace
     localStorage.clear(); // Borrar datos de sesión
-    window.location.href = "login.html"; // Ir al login
+    window.location.href = "index.html"; // Ir al login
 });

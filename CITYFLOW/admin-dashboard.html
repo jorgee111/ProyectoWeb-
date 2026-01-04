@@ -6,13 +6,7 @@
     <title>Panel de Operaciones - CityFlow</title>
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/admin.css">
-    
-    <script>
-        if (localStorage.getItem("role") !== "admin") {
-            window.location.href = "login.html";
-        }
-    </script>
-</head>
+    </head>
 <body>
     
     <header class="admin-header">
@@ -23,16 +17,16 @@
             </div>
             <div class="nav-links">
                 <span id="welcome-msg" style="color: white; margin-right: 15px; font-weight: bold;"></span>
-                <a href="#" onclick="logout()">Cerrar Sesión</a>
+                <a href="index.html" id="logout-btn">Cerrar Sesión</a>
             </div>
         </nav>
     </header>
 
     <main class="admin-wrapper">
-        <div class="admin-controls">
+        <article class="admin-controls">
             <h1>Gestión de Incidencias</h1>
             
-            <div class="stats-row">
+            <section class="stats-row">
                 <div class="kpi-card danger">
                     <h3 id="count-pending">0</h3>
                     <small>Pendientes</small>
@@ -41,10 +35,10 @@
                     <h3 id="count-solved">0</h3>
                     <small>Resueltas Hoy</small>
                 </div>
-            </div>
-        </div>
+            </section>
+        </article>
 
-        <div class="table-container">
+        <article class="table-container">
             <table class="admin-table">
                 <thead>
                     <tr>
@@ -59,26 +53,15 @@
                 <tbody id="incidents-tbody">
                     </tbody>
             </table>
-        </div>
+        </article>
     </main>
 
     <footer class="main-footer">
-        <div class="footer-content">
+        <section class="footer-content">
             <p>&copy; 2024 CityFlow - Panel de Control Administrativo</p>
-        </div>
+        </section>
     </footer>
 
     <script src="js/admin.js"></script>
-    
-    <script>
-        // 1. Mostrar el nombre del admin logueado
-        document.getElementById("welcome-msg").textContent = "Hola, " + localStorage.getItem("username");
-
-        // 2. Función para cerrar sesión de forma segura
-        function logout() {
-            localStorage.clear(); // Borramos el rol y el nombre
-            window.location.href = "login.html";
-        }
-    </script>
 </body>
 </html>

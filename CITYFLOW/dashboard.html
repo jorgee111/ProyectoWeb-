@@ -14,12 +14,15 @@
     <header>
         <nav class="navbar">
             <h2>CityFlow</h2>
+
+            <label for="menu-toggle" class="menu-icon">☰</label>
+            <input id="menu-toggle" type="checkbox">
             <div class="nav-links">
                 <a href="realtime-map.html">Mapa en Tiempo Real</a>
                 <a href="prediction.html">Predicción IA</a>
                 <a href="dashboard.html" class="active">Líneas</a>
                 <a href="my-incidents.html">Mis Incidencias</a>
-                <a href="login.html" id="logout-btn">Salir</a>
+                <a href="index.html" id="logout-btn">Salir</a>
             </div>
         </nav>
     </header>
@@ -46,14 +49,9 @@
     </main>
 
     <footer class="main-footer">
-        <article class="footer-content">
+        <section class="footer-content">
             <p>&copy; 2025 CityFlow - Gestión de Movilidad Urbana</p>
-            <section class="footer-links">
-                <a href="#">Soporte Técnico</a>
-                <a href="#">Aviso Legal</a>
-                <a href="#">Contacto</a>
-            </section>
-        </article>
+        </section>
     </footer>
 
     <script src="js/dashboard.js"></script>
