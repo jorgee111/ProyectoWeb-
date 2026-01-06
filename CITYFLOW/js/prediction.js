@@ -1,4 +1,3 @@
-// CITYFLOW/js/prediction.js
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -10,13 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // 1. Feedback visual de carga
+ 
         const originalBtnText = btnPredict.textContent;
         btnPredict.textContent = "Procesando...";
         btnPredict.disabled = true;
         btnPredict.style.backgroundColor = "var(--secondary-color)";
 
-        // 2. Preparar los datos
+       
         const datos = {
             hora: parseInt(document.getElementById('hora').value),
             dia_semana: parseInt(document.getElementById('dia').value),
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            // 3. Llamar a la API Python (Asegúrate que uvicorn corre en el 8000)
+    
             const response = await fetch('http://localhost:8000/predict', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -37,11 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
 
-            // 4. Mostrar resultado
             resultArea.classList.remove('hidden');
             predictionText.textContent = data.resultado;
 
-            // Asignar clases de color según la severidad (Usando tus variables CSS)
+
             predictionText.className = "status"; // Reset
             
             // Lógica simple de colores basada en tu dashboard

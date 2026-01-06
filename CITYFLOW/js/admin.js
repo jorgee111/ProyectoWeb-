@@ -1,30 +1,24 @@
 const API_URL = "http://localhost:4000/api/incidents"; 
 
-// 1. SEGURIDAD: Verificar si es admin nada más cargar
+// 1. SEGURIDAD
 if (localStorage.getItem("role") !== "admin") {
     window.location.href = "index.html";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    
-    // 2. BIENVENIDA: Mostrar nombre del usuario (usando la variable correcta)
     const currentUser = localStorage.getItem("usuario_actual") || "Admin";
     const welcomeElement = document.getElementById("welcome-msg");
-    if (welcomeElement) {
-        welcomeElement.textContent = "Hola, " + currentUser;
-    }
+    if (welcomeElement) welcomeElement.textContent = "Hola, " + currentUser;
 
-    // 3. LOGOUT: Configurar el botón de cerrar sesión
     const logoutBtn = document.getElementById("logout-btn");
     if (logoutBtn) {
         logoutBtn.addEventListener("click", (e) => {
-            e.preventDefault(); // Evita que el enlace recargue la página
+            e.preventDefault();
             localStorage.clear();
             window.location.href = "index.html";
         });
     }
 
-    // 4. CARGAR DATOS: Llamamos a la función principal
     loadIncidents();
 });
 
@@ -33,7 +27,6 @@ async function loadIncidents() {
         const response = await fetch(API_URL);
         const incidents = await response.json();
         
-        // Actualizar contadores
         document.getElementById("count-pending").textContent = incidents.filter(i => i.status === 'pending').length;
         document.getElementById("count-solved").textContent = incidents.filter(i => i.status === 'solved').length;
 
@@ -41,6 +34,7 @@ async function loadIncidents() {
         tbody.innerHTML = ""; 
 
         incidents.forEach(inc => {
+            // AÑADIDO: Botón de eliminar con clase 'btn-delete'
             const row = `
                 <tr>
                     <td>#INC-${inc.id}</td>
@@ -49,19 +43,50 @@ async function loadIncidents() {
                     <td>${inc.type}</td>
                     <td><span class="prio-${inc.priority ? inc.priority.toLowerCase() : 'normal'}">${inc.priority}</span></td>
                     <td>
-                        <form onsubmit="saveStatus(event, ${inc.id})" style="display:flex; gap:5px;">
-                            <select id="select-${inc.id}">
-                                <option value="pending" ${inc.status === 'pending' ? 'selected' : ''}>Pendiente</option>
-                                <option value="solved" ${inc.status === 'solved' ? 'selected' : ''}>Resuelta</option>
-                            </select>
-                            <button type="submit" class="btn-save">💾</button>
-                        </form>
+                        <section style="display:flex; gap:10px; align-items:center;">
+                            <form onsubmit="saveStatus(event, ${inc.id})" style="display:flex; gap:5px;">
+                                <select id="select-${inc.id}">
+                                    <option value="pending" ${inc.status === 'pending' ? 'selected' : ''}>Pendiente</option>
+                                    <option value="solved" ${inc.status === 'solved' ? 'selected' : ''}>Resuelta</option>
+                                </select>
+                                <button type="submit" class="btn-save" title="Guardar estado">💾</button>
+                            </form>
+                            
+                            <button onclick="deleteIncident(${inc.id})" class="btn-delete" title="Eliminar incidencia">🗑️</button>
+                        </section>
                     </td>
                 </tr>`;
             tbody.innerHTML += row;
         });
     } catch (error) { 
         console.error("Error cargando admin:", error); 
+    }
+}
+
+// FUNCION PARA ELIMINAR
+async function deleteIncident(id) {
+    // Confirmación para evitar clicks accidentales
+    const confirmDelete = confirm("⚠️ ¿Estás seguro de que quieres eliminar esta incidencia permanentemente?");
+    
+    if (!confirmDelete) return;
+
+    try {
+        const response = await fetch(`${API_URL}/${id}`, {
+            method: "DELETE"
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            alert("Incidencia eliminada");
+            loadIncidents(); // Recargamos la tabla
+        } else {
+            alert("Error: " + data.message);
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert("Error de conexión al eliminar");
     }
 }
 

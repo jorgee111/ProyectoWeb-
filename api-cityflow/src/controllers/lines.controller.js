@@ -1,6 +1,6 @@
 import { openDB } from "../db/db.js";
 
-// GET: Todas las líneas (Dashboard)
+// Todas las líneas 
 export async function getAllLines(req, res) {
     try {
         const db = await openDB();
@@ -11,7 +11,7 @@ export async function getAllLines(req, res) {
     }
 }
 
-// GET: Detalle de una línea (Line Detail)
+// Detalle de una línea
 export async function getLineDetail(req, res) {
     try {
         const { id } = req.params;

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Obtener el ID de la URL (ej: line-detail.html?id=1)
+    //Obtener el ID de la URL
     const urlParams = new URLSearchParams(window.location.search);
     const lineId = urlParams.get('id');
 
@@ -29,11 +29,11 @@ async function fetchLineData(id) {
 }
 
 function updateUI(line) {
-    // A. Actualizar Cabecera
-    // Muestra: "Línea 1 - Roja (Norte)"
+    // Actualizar Cabecera
+    
     document.querySelector('.detail-header h1').textContent = `${line.name} (${line.zone})`;
 
-    // B. Actualizar Badge de Estado y Color
+    // Actualizar Badge de Estado y Color
     const badge = document.querySelector('.badge-status');
     badge.textContent = line.status; // "Operativa", "Incidencia", etc.
 
@@ -49,8 +49,7 @@ function updateUI(line) {
         badge.style.color = '#fff';
     }
 
-    // C. Actualizar Estadísticas (Ocupación, Temperatura, Motor)
-    // Seleccionamos los elementos h3 dentro de las cajas estadísticas por orden
+    // Actualizar Estadísticas (Ocupación, Temperatura, Motor)
     const statsValues = document.querySelectorAll('.stat-box h3');
     if(statsValues.length >= 3) {
         statsValues[0].textContent = line.stats.occupancy;
@@ -58,7 +57,7 @@ function updateUI(line) {
         statsValues[2].textContent = line.stats.motor;
     }
 
-    // D. Generar la Tabla de Flota
+    //Generar la Tabla de Flota
     const tbody = document.querySelector('.flota-table tbody');
     tbody.innerHTML = ''; // Borrar datos de ejemplo del HTML
 

@@ -11,18 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault(); 
 
-        // 1. NUEVO: Recuperamos quién está conectado
-        // Si no hay nadie (null), usamos "barbe" por defecto para que no falle al probar
+        // Recuperamos quién está conectado
         const currentUser = localStorage.getItem("usuario_actual") || "barbe";
 
         const type = document.getElementById('type').value;
         const description = document.getElementById('description').value;
         const assistance = document.getElementById('assistance').checked; 
 
-        // 2. NUEVO: Añadimos 'user_name' al objeto
         const incidentData = {
             line_name: lineName,
-            user_name: currentUser, // <--- ¡AQUÍ ESTÁ LA CLAVE!
+            user_name: currentUser,
             type: type,
             description: description,
             assistance: assistance

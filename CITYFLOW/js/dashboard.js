@@ -7,7 +7,7 @@ let allLines = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
     
-    // Seguridad: Si no hay usuario, mandarlo al login
+    // Si no hay usuario, mandarlo al login
     const user = localStorage.getItem("usuario_actual");
     if (!user) {
         window.location.href = "index.html";
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadLines();
 });
 
-// 2. Función para pedir datos al servidor
+//Función para pedir datos al servidor
 async function loadLines() {
     try {
         const response = await fetch(API_URL);
@@ -41,7 +41,7 @@ async function loadLines() {
     }
 }
 
-// 3. Función para generar el HTML de las cartas
+// Función para generar el HTML de las cartas
 function renderLines(linesToRender) {
     // Limpiamos el contenedor antes de pintar
     container.innerHTML = "";
@@ -69,18 +69,18 @@ function renderLines(linesToRender) {
         // Creamos el HTML
         const cardHTML = `
             <article class="card">
-                <div class="card-header">
+                <section class="card-header">
                     <span class="line-badge">L-${line.id}</span>
                     <span class="status ${statusClass}">${statusText}</span>
-                </div>
-                <div class="card-body">
+                </section>
+                <section class="card-body">
                     <h3>${line.name}</h3>
                     <p><strong>Zona:</strong> ${line.zone}</p>
                     <p><strong>Ocupación:</strong> ${line.occupation}%</p>
-                </div>
-                <div class="card-footer">
+                </section>
+                <section class="card-footer">
                     <a href="line-detail.html?id=${line.id}" class="btn-detail">Ver Detalles</a>
-                </div>
+                </section>
             </article>
         `;
 

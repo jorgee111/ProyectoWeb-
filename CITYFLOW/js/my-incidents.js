@@ -1,18 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. CAMBIO CLAVE: Recuperar el mismo usuario que usaste para crear la incidencia
-    // Si localStorage está vacío, usamos "barbe" por defecto
-    const currentUser = localStorage.getItem("usuario_actual") || "barbe";
+    
+    const currentUser = localStorage.getItem("usuario_actual");
 
     console.log("👤 Cargando historial para:", currentUser);
 
-    // 2. Cargar las incidencias DE ESE usuario
     loadIncidents(currentUser);
 });
 
 async function loadIncidents(username) {
     try {
-        // Pide al backend las incidencias SOLO de este usuario
         const response = await fetch(`http://localhost:4000/api/incidents/user/${username}`);
         const result = await response.json();
 

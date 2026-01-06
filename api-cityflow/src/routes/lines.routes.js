@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { getAllLines, getLineDetail } from "../controllers/lines.controller.js";
+import { 
+    getAllLines, 
+    getLineDetail 
+} from "../controllers/lines.controller.js";
 
 const router = Router();
 

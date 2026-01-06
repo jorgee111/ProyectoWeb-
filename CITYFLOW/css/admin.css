@@ -1,6 +1,6 @@
 /* css/admin.css */
 
-/* Ajuste del Body para el Footer */
+/* --- CONFIGURACIÓN GENERAL --- */
 body {
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
@@ -15,10 +15,11 @@ body {
     margin: 2rem auto;
     padding: 0 20px;
     width: 100%;
-    flex: 1; /* Empuja el footer */
+    flex: 1; /* Empuja el footer hacia abajo */
+    box-sizing: border-box;
 }
 
-/* Header específico */
+/* --- HEADER ESPECÍFICO --- */
 .role-badge {
     background-color: #ffc107;
     color: #333;
@@ -32,12 +33,14 @@ body {
 
 .brand { display: flex; align-items: center; }
 
-/* KPIs (Cajas de arriba) */
+
 .admin-controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+    flex-wrap: wrap; /* Para que se adapte en móviles */
+    gap: 20px;
 }
 
 .stats-row { display: flex; gap: 15px; }
@@ -49,23 +52,26 @@ body {
     text-align: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     border-left: 4px solid #ccc;
+    min-width: 100px;
 }
 .kpi-card.danger { border-color: #dc3545; }
 .kpi-card.success { border-color: #28a745; }
+
 .kpi-card h3 { margin: 0; font-size: 1.5rem; }
 .kpi-card small { color: #666; font-size: 0.8rem; }
 
-/* Tabla de Administración */
+/* --- TABLA DE ADMINISTRACIÓN --- */
 .table-container {
     background: white;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    overflow-x: auto;
+    overflow-x: auto; /* Scroll horizontal si la tabla es muy ancha */
 }
 
 .admin-table {
     width: 100%;
     border-collapse: collapse;
+    min-width: 600px; /* Asegura que no se aplaste en móvil */
 }
 
 .admin-table th {
@@ -81,34 +87,53 @@ body {
     vertical-align: middle;
 }
 
-/* Acciones en la tabla */
-.action-form {
-    display: flex;
-    gap: 10px;
-}
+/* --- ACCIONES Y BOTONES (NUEVO) --- */
 
+/* Select de estado */
 .status-select {
-    padding: 5px;
+    padding: 6px;
     border-radius: 4px;
     border: 1px solid #ccc;
+    cursor: pointer;
 }
 
-.btn-update {
-    background-color: #007bff;
+/* Botón Guardar (Diskette) */
+.btn-save {
+    background-color: #007bff; /* Azul */
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 6px 10px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 1.1rem;
+    transition: background-color 0.2s;
 }
-.btn-update:hover { background-color: #0056b3; }
+.btn-save:hover { background-color: #0056b3; }
 
-/* Estilos de Prioridad */
+/* Botón Eliminar (Papelera) - NUEVO */
+.btn-delete {
+    background-color: #dc3545; /* Rojo Alerta */
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin-left: 8px; /* Separación del botón guardar */
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-delete:hover {
+    background-color: #c82333; /* Rojo más oscuro */
+    transform: scale(1.1); /* Efecto de ligero zoom */
+}
+
+/* --- ESTILOS DE PRIORIDAD Y ESTADO --- */
 .prio-high { color: #dc3545; font-weight: bold; }
 .prio-med { color: #fd7e14; font-weight: bold; }
 .prio-low { color: #28a745; font-weight: bold; }
+.prio-normal { color: #28a745; font-weight: bold; } /* Por si acaso llega como 'Normal' */
 
-/* Filas resueltas */
+/* Filas resueltas (opcional, si quieres que se vean grisaceas) */
 .row-done { background-color: #f8f9fa; color: #aaa; }
 .status-text-ok { color: #28a745; font-weight: bold; }

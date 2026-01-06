@@ -27,9 +27,9 @@ export async function getAllVehicles(req, res) {
             if (percentage > 85) occupancyLevel = "high"; // Rojo
 
             return {
-                code: bus.code,          // Ej: BUS-101
-                driver: bus.driver_name, // Ej: Roberto G.
-                line: bus.line_name,     // Ej: Línea 1 - Roja
+                code: bus.code,          
+                driver: bus.driver_name, 
+                line: bus.line_name,     
                 location: {
                     lat: bus.latitude,
                     lng: bus.longitude

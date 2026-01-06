@@ -1,6 +1,6 @@
 import { openDB } from "../db/db.js";
 
-// 1. CREAR (Usuario)
+// 1. CREAR USUARIO
 export async function createIncident(req, res) {
     try {
         const { line_name, type, description, assistance, user_name } = req.body;
@@ -26,7 +26,7 @@ export async function createIncident(req, res) {
     }
 }
 
-// 2. VER HISTORIAL PROPIO (Usuario)
+// 2. VER HISTORIAL PROPIO
 export async function getUserIncidents(req, res) {
     try {
         const { username } = req.params;
@@ -42,7 +42,7 @@ export async function getUserIncidents(req, res) {
     }
 }
 
-// 3. VER TODAS (Admin) - MOVIDO AQUÍ
+// 3. VER TODAS
 export async function getAllIncidents(req, res) {
     try {
         const db = await openDB();
@@ -54,7 +54,7 @@ export async function getAllIncidents(req, res) {
     }
 }
 
-// 4. ACTUALIZAR ESTADO (Admin) - MOVIDO AQUÍ
+// 4. ACTUALIZAR ESTADO 
 export async function updateIncidentStatus(req, res) {
     try {
         const { id } = req.params;
@@ -64,5 +64,24 @@ export async function updateIncidentStatus(req, res) {
         res.status(200).json({ success: true, message: "Estado actualizado" });
     } catch (error) {
         res.status(500).json({ error: "Error al actualizar" });
+    }
+}
+// 5. ELIMINAR INCIDENCIA
+export async function deleteIncident(req, res) {
+    try {
+        const { id } = req.params;
+        const db = await openDB();
+        
+        // Ejecutamos el borrado
+        const result = await db.run("DELETE FROM incidents WHERE id = ?", [id]);
+
+        if (result.changes === 0) {
+            return res.status(404).json({ success: false, message: "Incidencia no encontrada" });
+        }
+
+        res.status(200).json({ success: true, message: "Incidencia eliminada correctamente" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Error al eliminar la incidencia" });
     }
 }

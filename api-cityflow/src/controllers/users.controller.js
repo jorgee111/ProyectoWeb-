@@ -1,6 +1,7 @@
 import { openDB } from "../db/db.js";
-import bcrypt from "bcrypt"; // Recuperamos la seguridad
+import bcrypt from "bcrypt"; 
 
+//LOGIN DE USUARIO
 export async function login(req, res) {
     const { username, password } = req.body;
     try {
